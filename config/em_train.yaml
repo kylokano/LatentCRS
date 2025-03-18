@@ -1,0 +1,110 @@
+# hydra输出文件路径
+hydra:
+  run:
+    dir: ./outputs/hydra_output/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: ./outputs/hydra_multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    subdir: ${hydra.job.num}
+# 数据集配置
+defaults:
+  - _self_
+  - datasets: ml-1m
+
+local_dirs:
+  - ./outputs/em_train_output
+local_run_dir: ${get_local_run_dir:${exp_name},${local_dirs}}
+
+# Model Settings
+same_prerec_model: true
+same_y_m: true
+prior:
+  use_pretrained_intent: false
+  m_ux:
+    agg_type: concat # concat or gated
+    use_text_projection: true
+    text_projection: [1024, 64]
+    layer_hidden: [128, 64]
+    layer_norm: true
+    is_softmax: true
+    hidden_dropout_prob: 0.5
+  y_um:
+    agg_type: concat
+    e_step_distribution: softmax
+    layer_hidden: [128, 64]
+    layer_norm: true
+    is_softmax: true
+    hidden_dropout_prob: 0.5
+  load_pretrained: false
+  pretrained_path: ./models/pretrained_models/prior_model.pt
+posterior:
+  use_pretrained_intent: false
+  is_softmax: true
+  load_pretrained: false
+  pretrained_path: ./models/pretrained_models/posterior_model.pt
+
+precalculated_recmodel:
+  hidden_size: 64
+  max_seq_length: 25
+  hidden_dropout_prob: 0.5
+  item_size: ???
+  num_attention_heads: 2
+  num_layers: 2
+  num_hidden_layers: 2
+  hidden_act: gelu
+  attention_probs_dropout_prob: 0
+  initializer_range: 0.02
+
+# precalculated setting
+intent_hidden: ??? # K_means hidden size
+text_embedding_dim: 4096 # text embedding dim， 4096 for 7B
+train_preintent: true
+
+# Early Stop Settings
+early_stop:
+  patience: 20
+  delta: 0.00001
+  verbose: true
+  mode: max
+  path: ./outputs/checkpoints/
+  stop_metrics: NDCG@10
+  stopbywhich: MStep
+
+
+# Trainer Settings
+random_seed: 42
+batch_size: 480
+eval_batch_size: 120
+neg_sample_size: 10
+exp_name: em_train_demo
+debug: false
+load_best_model: true
+epochs: 500
+learning_rate: 0.01
+lambda_regular: 0.1 # logvar regular
+pretrained_lr_ratio: 0.01
+use_negetive_loss: true
+e_negetive_loss_weight: 10
+m_negetive_loss_weight: 10
+m_rec_loss_weight: 5
+neg_loss_temp: 1
+only_rec_epoch: 5
+lambda_reconstruct: 0
+no_estep: false
+no_mstep: false
+
+optim:
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_weight_decay: 0
+  adam_epsilon: 1e-8
+scheduler:
+  start_factor: 1
+  end_factor: 0.01
+  total_iters: 200
+validation_first: false
+
+# Wandb Settings
+wandb:
+  project: interrec
+  log_steps: true
+

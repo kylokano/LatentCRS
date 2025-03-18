@@ -1,0 +1,38 @@
+dataset_name: cds
+
+train_data_path: generated_data/cds/processed_data/cds_combination.jsonl
+# valid_data_path: generated_data/cds/processed_data/cds_raw_seedvalid.jsonl
+valid_data_path: generated_data/cds/processed_data/cds_raw_seedvalid_sample_1000.jsonl
+test_data_path: generated_data/cds/processed_data/cds_raw_seedtest.jsonl
+precalculated_embeddings_path: text2embedding/embedding_cache/cds
+raw_data_path: data/cds/cds.csv
+meta_task_keys:
+    - raw
+    - Product_Review_Rating
+    - Emotion Detection
+    - Sentiment_Analysis
+    - Similarity Check
+    - Key_Fact_Identification
+    - Intent_Detection
+    - Query_Intention
+    - Product_Interest
+    - Product_Recommendation
+    - Content_Based_Recommendations
+    - Tone_of Product
+
+filter_keys:
+    - raw
+    - 1755
+    - 2097
+    - 3068
+    - 6868
+    - 7702
+
+# RS模型预计算的参数
+precalculated_recmodel:
+  path: pre_rec_model/output/cds
+  kmeans_num_clusters: 128
+  loss_type: Hybrid
+  kmeans_file_name: ${.path}/ICLRec-cds-num_cluster_${.kmeans_num_clusters}_${.loss_type}_clusters
+  config: ${.path}/ICLRec-cds-num_cluster_${.kmeans_num_clusters}_${.loss_type}_config.json
+  checkpoint: ${.path}/ICLRec-cds-num_cluster_${.kmeans_num_clusters}_${.loss_type}.pt

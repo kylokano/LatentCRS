@@ -1,0 +1,37 @@
+dataset_name: ml-1m
+
+train_data_path: generated_data/ml-1m/processed_data/ml-1m_combination.jsonl
+valid_data_path: generated_data/ml-1m/processed_data/ml-1m_raw_seedvalid.jsonl
+test_data_path: generated_data/ml-1m/processed_data/ml-1m_raw_seedtest.jsonl
+precalculated_embeddings_path: text2embedding/embedding_cache/ml-1m
+raw_data_path: data/ml-1m/ml-1m.csv
+meta_task_keys:
+    - raw
+    - Product_Review_Rating
+    - Emotion Detection
+    - Sentiment_Analysis
+    - Similarity Check
+    - Key_Fact_Identification
+    - Intent_Detection
+    - Query_Intention
+    - Product_Interest
+    - Product_Recommendation
+    - Content_Based_Recommendations
+    - Tone_of Product
+
+filter_keys:
+    - raw
+    - 1755
+    - 2097
+    - 3068
+    - 6868
+    - 7702
+
+# RS模型预计算的参数
+precalculated_recmodel:
+  path: pre_rec_model/output/ml-1m
+  kmeans_num_clusters: 128
+  loss_type: Hybrid
+  kmeans_file_name: ${.path}/IntentRec-ml-1m-num_cluster_${.kmeans_num_clusters}_${.loss_type}_clusters
+  config: ${.path}/IntentRec-ml-1m-num_cluster_${.kmeans_num_clusters}_${.loss_type}_config.json
+  checkpoint: ${.path}/IntentRec-ml-1m-num_cluster_${.kmeans_num_clusters}_${.loss_type}.pt
