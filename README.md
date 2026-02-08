@@ -76,18 +76,3 @@ bash scripts/train_<dataset_name>.sh
 
 All the code for multi-turn evaluation can be found in the `multi-turn` folder. First, fill in the dataset name and the saved model path in `multi-turn/multi_turn_evaluation.sh`, then run the script.
 
-## Thanks
-
-We would like to thank the creators of [ICLRec](https://github.com/salesforce/ICLRec) and [LLM-ZeroShot-Rec](https://github.com/AaronHeee/LLMs-as-Zero-Shot-Conversational-RecSys), from whose implementations some of the code has been modified.
-
-## Reference
-
-```
-@article{li2025harmonizing,
-      title={Harmonizing Large Language Models with Collaborative Behavioral Signals for Conversational Recommendation}, 
-      author={Guanrong Li and Kuo Tian and Jinnan Qi and Qinghan Fu and Zhen Wu and Xinyu Dai},
-      journal={arXiv preprint arXiv:2503.10703}
-      year={2025},
-      url={https://arxiv.org/abs/2503.10703}, 
-}
-```
