@@ -9,7 +9,6 @@ The data processing code for three datasets is included in the `data` folder. Pl
 
 After downloading, place the files in the same folder as the code and run the preprocessing script. For the Amazon datasets, we also accept the 5-core setting and further filter items without descriptions in the metadata.
 
-Or, you can download the processed data from [Baidu Disk](https://pan.baidu.com/s/1FcCbRxOCZRyp0sOTsaOtnQ?pwd=pp7f) or [Google Drive](https://drive.google.com/file/d/1FBH3DyI7SSCu_fAEZ7KV4Jc4eItdtyjY/view?usp=sharing).
 
 ## Requirements
 
